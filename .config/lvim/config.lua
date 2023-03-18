@@ -164,64 +164,64 @@ lvim.builtin.treesitter.highlight.enable = true
 
 -- Additional Plugins
 lvim.plugins = {
---     {
---       "folke/trouble.nvim",
---       cmd = "TroubleToggle",
---     },
--- { "zbirenbaum/copilot.lua",
---   event = { "VimEnter" },
---   config = function()
---     vim.defer_fn(function()
---       require("copilot").setup {
---     panel = {
---       enabled = true,
---       auto_refresh = false,
---       keymap = {
---         jump_prev = "[[",
---         jump_next = "]]",
---         accept = "<CR>",
---         refresh = "gr",
---         open = "<M-CR>"
---       },
---       layout = {
---         position = "bottom", -- | top | left | right
---         ratio = 0.4
---       },
---     },
---     suggestion = {
---       enabled = true,
---       auto_trigger = false,
---       debounce = 75,
---       keymap = {
---         accept = "<M-l>",
---         accept_word = false,
---         accept_line = false,
---         next = "<M-]>",
---         prev = "<M-[>",
---         dismiss = "<C-]>",
---       },
---     },
---     filetypes = {
---       yaml = false,
---       markdown = false,
---       help = false,
---       gitcommit = false,
---       gitrebase = false,
---       hgcommit = false,
---       svn = false,
---       cvs = false,
---       ["."] = false,
---     },
---     copilot_node_command = 'node', -- Node.js version must be > 16.x
---     server_opts_overrides = {},
---   }
---     end, 100)
---   end,
--- },
+  --     {
+  --       "folke/trouble.nvim",
+  --       cmd = "TroubleToggle",
+  --     },
+  -- { "zbirenbaum/copilot.lua",
+  --   event = { "VimEnter" },
+  --   config = function()
+  --     vim.defer_fn(function()
+  --       require("copilot").setup {
+  --     panel = {
+  --       enabled = true,
+  --       auto_refresh = false,
+  --       keymap = {
+  --         jump_prev = "[[",
+  --         jump_next = "]]",
+  --         accept = "<CR>",
+  --         refresh = "gr",
+  --         open = "<M-CR>"
+  --       },
+  --       layout = {
+  --         position = "bottom", -- | top | left | right
+  --         ratio = 0.4
+  --       },
+  --     },
+  --     suggestion = {
+  --       enabled = true,
+  --       auto_trigger = false,
+  --       debounce = 75,
+  --       keymap = {
+  --         accept = "<M-l>",
+  --         accept_word = false,
+  --         accept_line = false,
+  --         next = "<M-]>",
+  --         prev = "<M-[>",
+  --         dismiss = "<C-]>",
+  --       },
+  --     },
+  --     filetypes = {
+  --       yaml = false,
+  --       markdown = false,
+  --       help = false,
+  --       gitcommit = false,
+  --       gitrebase = false,
+  --       hgcommit = false,
+  --       svn = false,
+  --       cvs = false,
+  --       ["."] = false,
+  --     },
+  --     copilot_node_command = 'node', -- Node.js version must be > 16.x
+  --     server_opts_overrides = {},
+  --   }
+  --     end, 100)
+  --   end,
+  -- },
 
--- { "zbirenbaum/copilot-cmp",
---   after = { "copilot.lua", "nvim-cmp" },
--- },
+  -- { "zbirenbaum/copilot-cmp",
+  --   after = { "copilot.lua", "nvim-cmp" },
+  -- },
   { "github/copilot.vim" },
   { "hrsh7th/cmp-copilot" },
   {
@@ -234,6 +234,41 @@ lvim.plugins = {
     config = function()
       vim.cmd "highlight default link gitblame SpecialComment"
       vim.g.gitblame_enabled = 0
+    end,
+  },
+  {
+    "ruifm/gitlinker.nvim",
+    event = "BufRead",
+    config = function()
+      require("gitlinker").setup {
+        opts = {
+          remote = 'nil', -- force the use of a specific remote
+          -- adds current line nr in the url for normal mode
+          add_current_line_on_normal_mode = true,
+          -- callback for what to do with the url
+          action_callback = require("gitlinker.actions").open_in_browser,
+          -- print the url after performing the action
+          print_url = true,
+          -- mapping to call url generation
+          mappings = "<leader>gy",
+        },
+        callback = {
+          ["github.com"] = require "gitlinker.hosts".get_github_type_url,
+          ["gitlab.com"] = require "gitlinker.hosts".get_gitlab_type_url,
+        },
+      }
+    end,
+    requires = "nvim-lua/plenary.nvim",
+  },
+  {
+    "pwntester/octo.nvim",
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'kyazdani42/nvim-web-devicons',
+    },
+    config = function()
+      require("octo").setup()
     end,
   },
 }
