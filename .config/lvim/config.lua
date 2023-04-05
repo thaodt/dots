@@ -20,7 +20,7 @@ lvim.builtin.terminal.active = false
 lvim.builtin.alpha.active = true
 
 -- close nvimtree when opening a file
-lvim.builtin.nvimtree.setup.actions.open_file.quit_on_open = true
+-- lvim.builtin.nvimtree.setup.actions.open_file.quit_on_open = true
 
 reload "user.plugins"
 reload "user.options"
