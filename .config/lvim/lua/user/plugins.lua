@@ -1,12 +1,19 @@
 -- Additional Plugins
 lvim.plugins = {
     "gpanders/editorconfig.nvim",
-    "sainnhe/gruvbox-material",
+    -- "sainnhe/gruvbox-material",
+    "ellisonleao/gruvbox.nvim",
     "fatih/vim-go",
     "olexsmir/gopher.nvim",
     "j-hui/fidget.nvim",
     "lvimuser/lsp-inlayhints.nvim",
-    "nvim-treesitter/nvim-treesitter-textobjects",
+    {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      after = "nvim-treesitter",
+      dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+      },
+    },
     "jose-elias-alvarez/typescript.nvim",
     {
         "folke/zen-mode.nvim",
@@ -46,7 +53,7 @@ lvim.plugins = {
         "zbirenbaum/copilot.lua",
         -- event = { "VimEnter" },
         config = function()
-            vim.defer_fn(function()
+            -- vim.defer_fn(function()
                 require("copilot").setup {
                     plugin_manager_path = os.getenv "LUNARVIM_RUNTIME_DIR" .. "/site/pack/packer",
                     suggestion = {
@@ -56,7 +63,7 @@ lvim.plugins = {
                         }
                     }
                 }
-            end, 100)
+            -- end, 100)
         end,
     },
     {

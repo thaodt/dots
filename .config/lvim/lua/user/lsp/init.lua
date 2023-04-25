@@ -12,4 +12,5 @@ formatters.setup {
     { command = "gofumpt",   filetypes = { "go" } },
     { command = "stylua",    filetypes = { "lua" } },
     { command = "shfmt",     filetypes = { "sh", "zsh" } },
+    { command = "rustfmt",   filetypes = { "rust" } },
 }
