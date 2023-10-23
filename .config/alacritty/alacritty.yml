@@ -1,13 +1,13 @@
 # Parts of this config were created by Derek Taylor, AKA DistroTube. The rest was created by Matt Weber aka The Linux Cast
 
 font:
-  size: 18
+  size: 8
   offset:
     y: 16
   glyph_offset:
     y: 9
   normal:
-    family: "NotoSansMono Nerd Font"
+    family: "SFMono Nerd Font"
 window:
   padding:
     x: 5
@@ -17,6 +17,7 @@ window:
     lines: 40
   opacity: 0.98
   decorations: full
+  #decorations: buttonless
 
 cursor:
   unfocused_hollow: true
