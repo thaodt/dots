@@ -2,12 +2,16 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
+let 
+  home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      (import "${home-manager}/nixos")
     ];
 
   # Bootloader.
@@ -23,6 +27,8 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+
+  nix.settings.experimental-features = "nix-command flakes";
 
   # Set your time zone.
   time.timeZone = "Asia/Ho_Chi_Minh";
@@ -87,6 +93,17 @@
       kdePackages.kate
     #  thunderbird
     ];
+  };
+  
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.thaod = import ./home.nix;
+    # programs.bash.enable = true;
+  
+    # The state version is required and should stay at the version you
+    # originally installed.
+    # home.stateVersion = "25.05";
   };
 
   # Install firefox.
